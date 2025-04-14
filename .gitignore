@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+test.db
+security/__pycache__/*
+security/google_oauth_client.json
