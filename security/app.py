@@ -81,16 +81,3 @@ app.include_router(
 async def authenticated_route(user: User = Depends(current_active_user)):
     return {"message": f"Hello {user.email}!"}
 
-
-# @app.get("/auth/authorize")
-# async def auth_authorize(request: Request):
-#     redirect_uri = "http://127.0.0.1:8000/auth/callback"
-#     return await oauth.google.authorize_redirect(request, redirect_uri)
-#
-# @app.get("/auth/callback")
-# async def auth_callback(request: Request):
-#     token = await oauth.google.authorize_access_token(request)
-#     return JSONResponse(content={
-#         "access_token": token.get("access_token"),
-#         "token_type": token.get("token_type")
-#     })
