@@ -35,7 +35,7 @@ class Personas(Base):
     __tablename__ = "personas"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
     name: Mapped[str] = mapped_column(nullable=True)
     description: Mapped[str] = mapped_column()
 
@@ -44,7 +44,7 @@ class Conversations(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     persona_id: Mapped[int] = mapped_column(ForeignKey("personas.id"))
-    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
 
 class Messages(Base):
     __tablename__ = "messages"
