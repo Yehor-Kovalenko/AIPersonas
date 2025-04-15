@@ -6,20 +6,42 @@ const ChatWindow = () => {
   const [input, setInput] = useState('');
 
   // Handle message submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+
     e.preventDefault();
     if (!input.trim()) return;
 
     // Add user message
     setMessages([...messages, { text: input, sender: 'user' }]);
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/get_answer/?param=${input}`, {
+        method: "GET"
+      });
 
-    // TODO Simulate bot response (placeholder)
-    setTimeout(() => {
+      if (response.status !== 200) {
+        alert("shit happens");
+        throw new Error(
+          "Error while sending prompt",
+        );
+      }
+      const data = await response.json();
+      setTimeout(() => {
       setMessages(prev => [...prev, {
-        text: `Echo: ${input}`,
+        text: `Echo: ${data}`,
         sender: 'bot'
       }]);
     }, 500);
+
+    } catch (err) {
+      console.error("Błąd: ", err);
+    }
+    // TODO Simulate bot response (placeholder)
+    // setTimeout(() => {
+    //   setMessages(prev => [...prev, {
+    //     text: `Echo: ${input}`,
+    //     sender: 'bot'
+    //   }]);
+    // }, 500);
 
     setInput('');
   };

@@ -11,6 +11,10 @@ input[type="image"] {
     object-fit: cover;
 }
 
+input[type="name"] {
+    margin-bottom: 5px;
+}
+
 .personas-list {
     display: flex;
     gap: 15px;
