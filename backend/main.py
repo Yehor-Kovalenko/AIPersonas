@@ -103,7 +103,7 @@ class UserData(BaseModel):
 
 
 @app.post('/api/get_user_personas')
-async def get_user_personas(request: UserData, user: User = Depends(current_active_user)):
+async def get_user_personas(user: User = Depends(current_active_user)):
     """
     Get all personas of the user
     """
