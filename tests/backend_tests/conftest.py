@@ -26,7 +26,7 @@ sys.path.append(
     )
 )
 
-from backend.main import app
+from main import app
 
 @pytest.fixture(scope="session")
 def client():
@@ -44,7 +44,7 @@ def mock_user():
 @pytest.fixture
 def override_auth(mock_user):
     """Override the auth dependency"""
-    from backend.users import current_active_user
+    from users import current_active_user
     app.dependency_overrides[current_active_user] = lambda: mock_user
     yield mock_user
     app.dependency_overrides.clear()

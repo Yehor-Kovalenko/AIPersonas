@@ -20,7 +20,7 @@ sys.path.append(
     )
 )
 
-from backend.app import app
+from main  import app
 
 # client = TestClient(app)
 
@@ -398,7 +398,7 @@ class TestAllEndpoints:
 
     def test_allowed_file_function_success(self):
         """Test the allowed_file helper function"""
-        from backend.main import allowed_file
+        from main import allowed_file
         
         # Test valid extensions
         assert allowed_file("test.mp3") == True

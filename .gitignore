@@ -26,3 +26,7 @@ dist-ssr
 *.sw?
 **/__pycache__
 **/.pytest_cache
+
+build_run_compose.sh
+*.pth
+*.pt

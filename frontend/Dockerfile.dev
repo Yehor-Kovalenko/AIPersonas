@@ -1,0 +1,12 @@
+FROM node:24.4-alpine
+
+WORKDIR /app
+
+COPY ./frontend/package*.json ./
+COPY ./frontend .
+
+COPY ./backend ../backend
+
+EXPOSE 5173
+
+CMD ["npm", "run", "dev"]

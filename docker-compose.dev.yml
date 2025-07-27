@@ -1,0 +1,50 @@
+services:
+  aip-frontend-react:
+    depends_on:
+      - aip-backend
+    build:
+      context: ./
+      dockerfile: ./frontend/Dockerfile.dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app/
+      - /app/node_modules # Prevent overriding node_modules in container by the host
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - path: ./backend/env/.env
+
+  aip-backend:
+    depends_on:
+      - aip-database
+    build:
+      context: ./
+      dockerfile: ./backend/Dockerfile.dev
+    ports:
+      - "8000:8000"
+    volumes:
+     - ./backend:/code/backend
+     - hf_cache:/root/.cache/huggingface
+     - whisper_cache:/root/.cache/whisper
+    environment:
+      - ENV=development
+      - HF_HOME=/root/.cache/huggingface
+    env_file:
+      - path: ./backend/env/.env
+
+  aip-database:
+    image: postgres
+    environment:
+      POSTGRES_USER: ai_dev
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: AIPersonas
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data 
+
+volumes:
+  pgdata:
+  hf_cache:
+  whisper_cache:

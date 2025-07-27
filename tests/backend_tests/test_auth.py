@@ -22,14 +22,14 @@ sys.path.append(
     )
 )
 
-from backend.app import app
+from main  import app
 
 class TestAuthUnit:
     """Unit tests for authentication components"""
     
     def test_jwt_strategy_initialization(self):
         """TU-01: Test JWT strategy initialization"""
-        from backend.users import auth_backend
+        from users import auth_backend
         
         # Verify JWT backend is properly configured
         assert auth_backend is not None
@@ -47,7 +47,7 @@ class TestAuthUnit:
 
     def test_google_oauth_client_configuration(self):
         """TU-02: Test Google OAuth2 client configuration"""
-        from backend.users import google_oauth_client
+        from users import google_oauth_client
         
         # Verify OAuth client is properly initialized
         assert google_oauth_client is not None
@@ -228,7 +228,7 @@ class TestAuthIntegration:
             mock_current_user.return_value = mock_user
             
             # Override dependency for this test
-            from backend.users import current_active_user
+            from users import current_active_user
             app.dependency_overrides[current_active_user] = lambda: mock_user
             
             try:
@@ -252,7 +252,7 @@ class TestAuthIntegration:
         mock_user.email = "lifecycle@example.com"
 
         with patch("backend.users.auth_backend") as auth_backend_client:
-            from backend.users import auth_backend
+            from users import auth_backend
 
             strategy = auth_backend.get_strategy()
             token_test = strategy.write_token(mock_user)

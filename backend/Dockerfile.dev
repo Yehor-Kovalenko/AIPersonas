@@ -1,0 +1,16 @@
+FROM python:3.11
+
+
+WORKDIR /code
+
+RUN pip install --no-cache-dir torch torchaudio --index-url https://download.pytorch.org/whl/cpu
+RUN pip install git+https://github.com/openai/whisper.git 
+
+COPY ./backend/requirements.txt /code/backend/requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /code/backend/requirements.txt
+
+# COPY ./backend ./backend
+
+# CMD ["fastapi", "run", "app/main.py", "--port", "80"]  # Default FastAPI dev server - we have uvicorn instead
+
+CMD ["python", "backend/app/main.py"]
